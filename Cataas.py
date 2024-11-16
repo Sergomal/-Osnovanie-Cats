@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from PIL import Image, ImageTk
 import requests
 from io import BytesIO
@@ -18,7 +19,7 @@ def load_image(url):
 
 
 def set_image():
-    tag = tag_entry.get()
+    tag = tag_combobox.get()
     if tag:
         img = load_image(f"{url}/{tag}")
     else:
@@ -29,12 +30,11 @@ def set_image():
 
 
 def open_new_window():
-    tag = tag_entry.get()
+    tag = tag_combobox.get()
     if tag:
         img = load_image(f"{url}/{tag}")
     else:
         img = load_image(url)
-
 
     if img:
         new_window = Toplevel()
@@ -49,6 +49,9 @@ def exit():
     window.destroy()
 
 
+url = "https://cataas.com/cat"
+Allowed_tags = ["", "black", "detective", "fight", "jump", "piano", "pino", "sleep"]
+
 window = Tk()
 window.title("Cats!")
 window.geometry("600x520")
@@ -59,11 +62,11 @@ label.pack(expand=True)
 # update_button = Button(text="Обновить", command=set_image)
 # update_button.pack(side=LEFT, fill=BOTH)
 
-tag_button = Button(text="Загрузить по тегу", command=set_image)
+tag_button = Button(text="Загрузить по тегу:", command=set_image)
 tag_button.pack(side=LEFT, fill=BOTH)
 
-tag_entry = Entry()
-tag_entry.pack(side=LEFT, fill=BOTH)
+# tag_entry = Entry()
+# tag_entry.pack(side=LEFT, fill=BOTH)
 
 menu_bar = Menu(window)
 window.config(menu=menu_bar)
@@ -74,7 +77,12 @@ file_menu.add_command(label="Загрузить фото в новом окне"
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
-url = "https://cataas.com/cat"
+
+tag_label = Label(window, text="Выбери тег:")
+tag_label.pack(side=LEFT, fill=BOTH)
+
+tag_combobox = ttk.Combobox(values=Allowed_tags)
+tag_combobox.pack(side=LEFT, fill=BOTH)
 
 set_image()
 
