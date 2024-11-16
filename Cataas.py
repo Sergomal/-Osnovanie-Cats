@@ -18,14 +18,23 @@ def load_image(url):
 
 
 def set_image():
-    img = load_image(url)
+    tag = tag_entry.get()
+    if tag:
+        img = load_image(f"{url}/{tag}")
+    else:
+        img = load_image(url)
     if img:
         label.config(image=img)
         label.image = img
 
 
 def open_new_window():
-    img = load_image(url)
+    tag = tag_entry.get()
+    if tag:
+        img = load_image(f"{url}/{tag}")
+    else:
+        img = load_image(url)
+
 
     if img:
         new_window = Toplevel()
@@ -45,10 +54,16 @@ window.title("Cats!")
 window.geometry("600x520")
 
 label = Label()
-label.pack()
+label.pack(expand=True)
 
-update_button = Button(text="Обновить", command=set_image)
-update_button.pack()
+# update_button = Button(text="Обновить", command=set_image)
+# update_button.pack(side=LEFT, fill=BOTH)
+
+tag_button = Button(text="Загрузить по тегу", command=set_image)
+tag_button.pack(side=LEFT, fill=BOTH)
+
+tag_entry = Entry()
+tag_entry.pack(side=LEFT, fill=BOTH)
 
 menu_bar = Menu(window)
 window.config(menu=menu_bar)
