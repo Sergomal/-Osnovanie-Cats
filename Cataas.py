@@ -16,6 +16,14 @@ def load_image(url):
         return None
 
 
+def set_image():
+    img = load_image(url)
+    if img:
+        label.config(image=img)
+        label.image = img
+
+
+
 window = Tk()
 window.title("Cats!")
 window.geometry("600x480")
@@ -23,11 +31,11 @@ window.geometry("600x480")
 label = Label()
 label.pack()
 
-url = "https://cataas.com/cat"
-img = load_image(url)
+update_button = Button(text="Обновить", command=set_image)
+update_button.pack()
 
-if img:
-    label.config(image=img)
-    label.image = img
+url = "https://cataas.com/cat"
+
+set_image()
 
 window.mainloop()
